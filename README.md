@@ -16,6 +16,9 @@ You get the following per setup:
 - rpcnode
 - n nodes 
 
+
+The keys for the various nodes can be found under `ibft-4-validators/files/besu-ibft/` Please modify with as many nodes you would like to provision and increase the count in `variables.tf`
+
 The monitoring instances are provisioned with prometheus and will automatically pull in metrics for any nodes deployed in their respective networks. Credentials are provisioned via an instance IAM role. 
 Grafana credentials are admin/Password1 - please login and change this, we suggest using an OAuth mechanism like Google.
 
@@ -25,7 +28,7 @@ Grafana credentials are admin/Password1 - please login and change this, we sugge
 
 2. Install [terraform](https://learn.hashicorp.com/terraform/getting-started/install.html)
 
-3. Enter the platform of choice and change directory to `ibft-4-validaotrs`
+3. Enter the platform of choice and change directory to `ibft-4-validators`
 
 4. Update variables.tf to suit your needs
 eg: update node_count, besu_version or provide a besu_download_url link if using a build from circleci or your own custom servers or repos

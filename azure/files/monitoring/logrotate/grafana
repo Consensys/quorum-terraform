@@ -1,0 +1,7 @@
+/var/log/grafana/*.log {
+    rotate 7
+    missingok
+    daily
+    compress
+    copytruncate
+}
