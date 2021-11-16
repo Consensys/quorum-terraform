@@ -1,8 +1,10 @@
-
 variable "region" {
   default = "ap-southeast-2"
 }
-
+variable "ubuntu_id" {
+  description = "Variable for getting ubuntu image id"
+  default = "data.aws_ami.ubuntu.id"
+}
 variable "azs" {
   type    = list(string)
   default = ["ap-southeast-2a", "ap-southeast-2b", "ap-southeast-2c"]
@@ -33,18 +35,18 @@ variable "login_user" {
 # the name of the ssh key pair in aws
 # this tells aws to provision instances with this keypair
 variable "default_ssh_key" {
-  default = "default-aws-pem.pem"
+  default = "aws_default_key"
 }
 
 # the path to this key pair locally
 # this is used by terrafrom to ssh in and run any provisioning steps
 # NOTE/GOTCHA: on osx this generally goes along the lines '/Users/username/.....' and on linux it is '/home/username/...'
 variable "default_ssh_key_path" {
-  default = "/home/username/.ssh/default-aws-pem.pem"
+  default = "/Users/tarakaprabhu/.ssh/aws_default_key.pem"
 }
 
 variable "user_ssh_public_keys" {
-  type = "list"
+  type = list
   default = []
 }
 
@@ -64,4 +66,12 @@ variable "node_count" {
 
 variable "node_instance_type" {
   default = "t3.medium"
+}
+
+variable "nodes_list" {
+  description = "map of all the nodes in ibft"
+  default = {
+  0 = "bootnode",
+  1 = "rpcnode",
+  }
 }
