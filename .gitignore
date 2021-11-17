@@ -2,3 +2,6 @@
 .terraform/*
 terraform.tfstate.backup
 .idea/*
+**/.terraform
+**/.DS_Store
+aws/terraform.tfstate
