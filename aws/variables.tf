@@ -42,7 +42,7 @@ variable "default_ssh_key" {
 # this is used by terrafrom to ssh in and run any provisioning steps
 # NOTE/GOTCHA: on osx this generally goes along the lines '/Users/username/.....' and on linux it is '/home/username/...'
 variable "default_ssh_key_path" {
-  default = "/Users/tarakaprabhu/.ssh/aws_default_key.pem"
+  default = "/home/username/.ssh/default-aws-pem.pem"
 }
 
 variable "user_ssh_public_keys" {
