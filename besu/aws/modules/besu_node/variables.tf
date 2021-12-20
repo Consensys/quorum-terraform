@@ -24,7 +24,7 @@ variable "node_details" {
   default = {
     node_type         = "rpcnode" # bootnode, validator, rpcnode
     node_count        = 1
-    provisioning_path = "files/besu"
+    provisioning_path = "./files/besu"
     iam_profile       = ""
     ami_id            = ""
     volume_size       = 500

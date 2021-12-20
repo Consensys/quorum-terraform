@@ -2,10 +2,6 @@ variable "login_user" {
   default = "ubuntu"
 }
 
-variable "ami_id" {
-  description = "Variable for getting ubuntu image id"
-  default     = "ami-0fb653ca2d3203ac1"
-}
 variable "azs" {
   type    = list(string)
   default = ["ap-southeast-2a", "ap-southeast-2b", "ap-southeast-2c"]
@@ -47,7 +43,7 @@ variable "node_details" {
     node_type         = "rpcnode" # bootnode, validator, rpcnode
     node_count        = 1
     provisioning_path = "files/besu"
-    ami_id            = ""
+    ami_id            = "ami-0fb653ca2d3203ac1"
     volume_size       = 500 # in GB
   }
 }

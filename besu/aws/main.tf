@@ -2,7 +2,6 @@
 ###########################
 module "bootnodes" {
   source          = "./modules/besu_node"
-  ami_id          = var.ami_id
   region_details  = var.region_details
   vpc_info        = var.vpc_info
   vpc_id          = module.vpc.vpc_id
@@ -13,6 +12,7 @@ module "bootnodes" {
     node_type         = "bootnode"
     node_count        = var.besu_bootnode_count
     provisioning_path = "./files/besu"
+    ami_id            = var.node_details["ami_id"]
     iam_profile       = aws_iam_instance_profile.eth_nodes_profile.name
     instance_type     = var.node_details["instance_type"]
     volume_size       = var.node_details["volume_size"]
@@ -22,7 +22,6 @@ module "bootnodes" {
 # RPC nodes
 module "rpcnodes" {
   source         = "./modules/besu_node"
-  ami_id         = var.ami_id
   depends_on     = [module.bootnodes]
   region_details = var.region_details
   vpc_info       = var.vpc_info
@@ -33,6 +32,7 @@ module "rpcnodes" {
     node_type         = "rpcnode"
     node_count        = var.besu_rpcnode_count
     provisioning_path = "./files/besu/"
+    ami_id            = var.node_details["ami_id"]
     iam_profile       = aws_iam_instance_profile.eth_nodes_profile.name
     instance_type     = var.node_details["instance_type"]
     volume_size       = var.node_details["volume_size"]
@@ -42,7 +42,6 @@ module "rpcnodes" {
 # Validators
 module "validators" {
   source         = "./modules/besu_node"
-  ami_id         = var.ami_id
   depends_on     = [module.bootnodes, module.rpcnodes]
   region_details = var.region_details
   vpc_info       = var.vpc_info
@@ -53,6 +52,7 @@ module "validators" {
     node_type         = "validator"
     node_count        = var.besu_validatornode_count
     provisioning_path = "./files/besu/"
+    ami_id            = var.node_details["ami_id"]
     iam_profile       = aws_iam_instance_profile.eth_nodes_profile.name
     instance_type     = var.node_details["instance_type"]
     volume_size       = var.node_details["volume_size"]
