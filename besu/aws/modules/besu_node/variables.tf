@@ -26,7 +26,7 @@ variable "node_details" {
     node_count        = 1
     provisioning_path = "./files/besu"
     iam_profile       = ""
-    ami_id            = ""
+    ami_id            = "ami-0b7dcd6e6fd797935"
     volume_size       = 500
     instance_type     = "t3.xlarge"
   }
@@ -64,7 +64,7 @@ variable "vpc_id" {
 }
 
 variable "besu_version" {
-  default = "21.10.3"
+  default = "21.10.5"
 }
 
 variable "besu_download_url" {

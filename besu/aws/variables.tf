@@ -43,7 +43,7 @@ variable "node_details" {
     node_type         = "rpcnode" # bootnode, validator, rpcnode
     node_count        = 1
     provisioning_path = "files/besu"
-    ami_id            = "ami-0fb653ca2d3203ac1"
+    ami_id            = "ami-0b7dcd6e6fd797935"
     volume_size       = 500 # in GB
   }
 }
