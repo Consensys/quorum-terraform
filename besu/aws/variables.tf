@@ -2,9 +2,9 @@ variable "login_user" {
   default = "ubuntu"
 }
 
-variable "ubuntu_id" {
+variable "ami_id" {
   description = "Variable for getting ubuntu image id"
-  default     = "data.aws_ami.ubuntu.id"
+  default     = "ami-0fb653ca2d3203ac1"
 }
 variable "azs" {
   type    = list(string)
@@ -68,7 +68,7 @@ variable "user_ssh_public_keys" {
 }
 
 variable "besu_version" {
-  default = "21.10.3"
+  default = "21.10.5"
 }
 
 variable "besu_download_url" {

@@ -1,5 +1,5 @@
 resource "aws_instance" "monitoring" {
-  ami           = var.ubuntu_id
+  ami           = var.ami_id
   instance_type = "t3.micro"
   key_name      = var.default_ssh_key
   subnet_id     = module.vpc.public_subnets[0]

@@ -2,6 +2,11 @@ variable "login_user" {
   default = "ubuntu"
 }
 
+variable "ami_id" {
+  description = "Variable for getting ubuntu image id"
+  default     = "ami-0fb653ca2d3203ac1"
+}
+
 # map of region details
 variable "region_details" {
   type = map(string)

@@ -2,6 +2,7 @@
 ###########################
 module "bootnodes" {
   source          = "./modules/besu_node"
+  ami_id          = var.ami_id
   region_details  = var.region_details
   vpc_info        = var.vpc_info
   vpc_id          = module.vpc.vpc_id
@@ -21,6 +22,7 @@ module "bootnodes" {
 # RPC nodes
 module "rpcnodes" {
   source         = "./modules/besu_node"
+  ami_id         = var.ami_id
   depends_on     = [module.bootnodes]
   region_details = var.region_details
   vpc_info       = var.vpc_info
@@ -40,6 +42,7 @@ module "rpcnodes" {
 # Validators
 module "validators" {
   source         = "./modules/besu_node"
+  ami_id         = var.ami_id
   depends_on     = [module.bootnodes, module.rpcnodes]
   region_details = var.region_details
   vpc_info       = var.vpc_info
