@@ -37,13 +37,14 @@ variable "region_details" {
 }
 
 # map of node details
-variable "node_details" {
+variable "node_settings" {
   type = map(string)
   default = {
     node_type         = "rpcnode" # bootnode, validator, rpcnode
     node_count        = 1
     provisioning_path = "files/besu"
     ami_id            = "ami-0b7dcd6e6fd797935"
+    instance_type     = "t3.xlarge"
     volume_size       = 500 # in GB
   }
 }
