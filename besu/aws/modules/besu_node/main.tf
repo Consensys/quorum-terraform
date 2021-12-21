@@ -99,7 +99,7 @@ resource "aws_instance" "nodes" {
       "sh $HOME/append_auth_keys.sh ${join(" ", formatlist("'%s'", var.user_ssh_public_keys))}",
       "sudo apt-get update && sudo apt-get install -y apparmor apt-transport-https ca-certificates curl build-essential openjdk-11-jdk python3 python3-setuptools python3-pip python3-dev python3-virtualenv python3-venv virtualenv",
       "sudo sh $HOME/provision_volume.sh",
-      "sudo sh $HOME/besu/setup.sh '${var.besu_version}' '${var.besu_download_url}' '${var.region_details["node_type"] == "bootnode" ? self.private_ip : var.bootnode_ip}'",
+      "sudo sh $HOME/besu/setup.sh '${var.besu_version}' '${var.besu_download_url}' '${var.region_details["node_type"] == "bootnode" ? self.public_ip : var.bootnode_ip}'",
       "sleep 15",
     ]
   }
