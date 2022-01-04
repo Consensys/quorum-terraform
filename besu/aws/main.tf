@@ -21,12 +21,12 @@ module "bootnodes" {
 
 # RPC nodes
 module "rpcnodes" {
-  source         = "./modules/besu_node"
-  depends_on     = [module.bootnodes]
-  region_details = var.region_details
-  vpc_info       = var.vpc_info
-  vpc_id         = module.vpc.vpc_id
-  bootnode_ip    = module.bootnodes.bootnode_ip
+  source          = "./modules/besu_node"
+  depends_on      = [module.bootnodes]
+  region_details  = var.region_details
+  vpc_info        = var.vpc_info
+  vpc_id          = module.vpc.vpc_id
+  bootnode_ip     = module.bootnodes.bootnode_ip
   public_subnets  = module.vpc.public_subnets
   private_subnets = module.vpc.private_subnets
 
@@ -43,12 +43,12 @@ module "rpcnodes" {
 
 # Validators
 module "validators" {
-  source         = "./modules/besu_node"
-  depends_on     = [module.bootnodes, module.rpcnodes]
-  region_details = var.region_details
-  vpc_info       = var.vpc_info
-  vpc_id         = module.vpc.vpc_id
-  bootnode_ip    = module.bootnodes.bootnode_ip
+  source          = "./modules/besu_node"
+  depends_on      = [module.bootnodes, module.rpcnodes]
+  region_details  = var.region_details
+  vpc_info        = var.vpc_info
+  vpc_id          = module.vpc.vpc_id
+  bootnode_ip     = module.bootnodes.bootnode_ip
   public_subnets  = module.vpc.public_subnets
   private_subnets = module.vpc.private_subnets
 

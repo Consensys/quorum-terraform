@@ -6,8 +6,8 @@ node_settings = {
 }
 region_details = {
   region       = "ap-southeast-2"
-  ssh_key      = "ap-southeast-2-dev"           # key name in AWS
-  ssh_key_path = "./ssh/ap-southeast-2-dev.pem" # local private key for associated ssh key
+  ssh_key      = "pegasys-sydney"                      # key name in AWS
+  ssh_key_path = "~/.ssh/consensys/pegasys-sydney.pem" # local private key for associated ssh key
 }
 besu_bootnode_count      = "1" # please note that only 1 bootnode is supported at this time
 besu_rpcnode_count       = "1"
