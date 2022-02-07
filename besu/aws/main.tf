@@ -62,3 +62,10 @@ module "validators" {
     volume_size       = var.node_settings["volume_size"]
   }
 }
+
+# Monitoring
+# module "monitoring" {
+#   source = "./modules/monitoring"
+#   depends_on = [module.bootnodes, module.rpcnodes, module.validators]
+
+# }

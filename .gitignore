@@ -7,3 +7,5 @@ terraform.tfstate.backup
 aws/terraform.tfstate
 .DS_STORE
 .envrc
+.lh
+*.tfvars
