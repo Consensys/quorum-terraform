@@ -8,4 +8,4 @@ aws/terraform.tfstate
 .DS_STORE
 .envrc
 .lh
-dev.tfvars
+*.tfvars
