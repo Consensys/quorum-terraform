@@ -59,7 +59,7 @@ resource "aws_instance" "nodes" {
     type        = "ssh"
     user        = var.login_user
     host        = self.public_ip
-    private_key = file(var.node_details["ssh_key_path"])
+    private_key = file(var.region_details["ssh_key_path"])
   }
 
   provisioner "file" {
@@ -83,7 +83,7 @@ resource "aws_instance" "nodes" {
   }
 
   provisioner "file" {
-    source      = "./files/besu_ibft/"
+    source      = "${var.node_details["provisioning_path"]}/${var.node_details["node_type"]}-${count.index}"
     destination = "$HOME/besu/node_db/"
   }
 
