@@ -1,6 +1,7 @@
 */.terraform/*
 .terraform/*
 terraform.tfstate.backup
+.terraform.tfstate.lock.info
 terraform.tfstate
 .idea/*
 **/.terraform
