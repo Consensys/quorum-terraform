@@ -1,0 +1,65 @@
+{
+  "config": {
+    "chainId": 1337,
+    "homesteadBlock": 0,
+    "eip150Block": 0,
+    "eip150Hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "eip155Block": 0,
+    "eip158Block": 0,
+    "byzantiumBlock": 0,
+    "istanbul": {
+      "epoch": 30000,
+      "policy": 0,
+      "testQBFTBlock": 0,
+      "ceil2Nby3Block": 0
+    },
+    "txnSizeLimit": 64,
+    "maxCodeSize": 0,
+    "isQuorum": true
+  },
+  "nonce": "0x0",
+  "timestamp": "0x5f1663fc",
+  "gasLimit": "0x29b92700",
+  "difficulty": "0x1",
+  "number": "0x0",
+  "gasUsed": "0x0",
+  "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
+  "extraData": "0xf87aa00000000000000000000000000000000000000000000000000000000000000000f8549403d2f733eeb6f79bd24ffcdac6a47c0397133a2894e0f525873808f3647e1cace1026a5dbc3eec6429943dc00352b5dd9276282bef9379ad9778f1df53f4949891e047bcbc6992226b8bb9634b1af2d74b1597c080c0",
+  "coinbase": "0x0000000000000000000000000000000000000000",
+  "alloc": {
+    "fe3b557e8fb62b89f4916b721be55ceb828dbd73" : {
+      "privateKey" : "8f2a55949038a9610f50fb23b5883af3b4ecb3c3bb792cbcefbd1542c692be63",
+      "comment" : "private key and this comment are ignored.  In a real chain, the private key should NOT be stored",
+      "balance" : "0xad78ebc5ac6200000"
+    },
+    "627306090abaB3A6e1400e9345bC60c78a8BEf57" : {
+      "privateKey" : "c87509a1c067bbde78beb793e6fa76530b6382a4c0241e5e4a9ec0a0f44dc0d3",
+      "comment" : "private key and this comment are ignored.  In a real chain, the private key should NOT be stored",
+      "balance" : "90000000000000000000000"
+    },
+    "f17f52151EbEF6C7334FAD080c5704D77216b732" : {
+      "privateKey" : "ae6ae8e5ccbfb04590405997ee2d52d2b330726137b875053c36d94e974d162f",
+      "comment" : "private key and this comment are ignored.  In a real chain, the private key should NOT be stored",
+      "balance" : "90000000000000000000000"
+    },
+    "23642fa6ddb50833b5f00c755a3f8318569f9ddb": {
+      "balance": "1000000000000000000000000000"
+    },
+    "cdd40ba618a0238d61f3d1b98c88177415926d22": {
+      "balance": "1000000000000000000000000000"
+    },
+    "62778c879855e3aac093ec0d0b5b51adc159cc0b": {
+      "balance": "1000000000000000000000000000"
+    },
+    "190aa50fef276884fe381b934a025d28b9948fb3": {
+      "balance": "1000000000000000000000000000"
+    },
+    "151fe5e7117f5b92ec62b909a74816f99227273a": {
+      "balance": "1000000000000000000000000000"
+    },
+    "db4385d5baf61834b121a6ae53c0e161dcf1fa99": {
+      "balance": "1000000000000000000000000000"
+    }
+  }
+}

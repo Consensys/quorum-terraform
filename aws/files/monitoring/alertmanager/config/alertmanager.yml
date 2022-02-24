@@ -1,0 +1,54 @@
+
+global:
+  # email
+  smtp_smarthost: "smtp.gmail.com:587"
+  #smtp_auth_username: ""
+  #smtp_auth_password: ""
+
+  #slack - insert the webhook url
+  slack_api_url: "REPLACE_ME"
+
+# Files from which custom notification template definitions are read.
+# The last component may use a wildcard matcher, e.g. 'templates/*.tmpl'.
+templates:
+#  [ - <filepath> ... ]
+
+
+# notification routing
+route:
+  # When a new group of alerts is created by an incoming alert, wait for 'group_wait' to send the initial notification.
+  # This way ensures that you get multiple alerts for the same group that start firing shortly after another are
+  # batched together on the first notification.
+  group_wait: 10s
+  # When the first notification was sent, wait 'group_interval' to send a batch of new alerts that started firing for that group.
+  group_interval: 1m
+  # If an alert has successfully been sent, wait 'repeat_interval' to resend them.
+  repeat_interval: 30m
+  receiver: "notify-recevier-default"
+
+  # All the above attributes are inherited by all child routes and can be overwritten on each.
+  routes:
+    - match_re:
+        severity: error|warning|critical
+        # Whether an alert should continue matching subsequent sibling nodes.
+        continue: true
+
+# notification receivers
+receivers:
+  - name: "notify-recevier-default"
+    #email_configs:
+    #  - to: ""
+    #    from: ""
+    slack_configs:
+      - channel: "REPLACE_ME"
+
+
+# Inhibition rules allow to mute a set of alerts given that another alert is firing.
+# eg: use this to mute any warning-level notifications if the same alert is already critical.
+inhibit_rules:
+#  - source_match:
+#      severity: "critical"
+#    target_match:
+#      severity: "warning"
+#    # Apply inhibition if the alertname is the same.
+#    equal: ['alertname', 'cluster', 'service']

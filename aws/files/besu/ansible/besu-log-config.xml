@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO" monitorInterval="5">
+
+  <Properties>
+    <Property name="root.log.level">INFO</Property>
+  </Properties>
+
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout alwaysWriteExceptions="false" pattern='{"timestamp":"%d{ISO8601}","level":"%level","thread":"%t","class":"%c{1}","message":"%msg","throwable":"%enc{%throwable}{JSON}"}%n'/>
+    </Console>
+    <RollingFile name="RollingFile" fileName="/var/log/besu-${env:HOSTNAME}.log" filePattern="/var/log/besu-${env:HOSTNAME}-%d{yyyy-MM-dd}-%i.log" >
+      <PatternLayout alwaysWriteExceptions="false" pattern='{"timestamp":"%d{ISO8601}","level":"%level","thread":"%t","class":"%c{1}","message":"%msg","throwable":"%enc{%throwable}{JSON}"}%n'/>
+      <Policies>
+        <SizeBasedTriggeringPolicy size="10 MB" />
+      </Policies>
+      <DefaultRolloverStrategy max="7"/>
+    </RollingFile>
+  </Appenders>
+
+  <Loggers>
+    <Root level="${sys:root.log.level}">
+      <AppenderRef ref="Console" />
+    </Root>
+  </Loggers>
+
+</Configuration>

@@ -1,0 +1,76 @@
+groups:
+  - name: node_down
+    rules:
+      - alert: node_down
+        expr: up{job="besu-node"} == 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} down"
+          description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes."
+
+  - name: node_blocks_behind
+    rules:
+      - alert: node_blocks_behind
+        expr: (ethereum_best_known_block_number{job="besu-node"} - ethereum_blockchain_height{job="besu-node"}) > 15
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} blocks behind"
+          description: "{{ $labels.instance }} of job {{ $labels.job }} has blocks behind for more than 5 minutes."
+
+  - name: node_high_cpu
+    rules:
+      - alert: node_high_cpu
+        expr: (irate(process_cpu_seconds_total{job="besu-node"}[1m])) >  75.0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} high cpu"
+          description: "{{ $labels.instance }} of job {{ $labels.job }} has high cpu for more than 5 minutes."
+
+  - name: node_not_enough_peers
+    rules:
+      - alert: node_not_enough_peers
+        expr: ethereum_peer_count{job="besu-node"} < 4
+        for: 1h
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} not enough peers"
+          description: "{{ $labels.instance }} of job {{ $labels.job }} has a lower than expected number of active peers (< max peer limit - 1)."
+
+  - name: node_no_peers
+    rules:
+      - alert: node_no_peers
+        expr: ethereum_peer_count{job="besu-node"} == 0
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} has zero peers."
+          description: "{{ $labels.instance }} of job {{ $labels.job }} has no peers for over 10 minutes."
+
+  - name: node_low_disk_space
+    rules:
+      - alert: node_low_disk_space
+        expr: node_filesystem_avail_bytes{mountpoint="/data", instance=~"$system"} < 64424509440
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Instance {{ $labels.instance }} is low on disk space"
+          description: "{{ $labels.instance }} of job {{ $labels.job }} has less than 60 GiB of disk space, for mainnnet nodes this will casue out of disk space in less than a week."
+
+# todo: convert to an atual number so it doesnt read MB on the end
+#  - name: node_high_mem
+#    rules:
+#      - alert: node_high_mem
+#        expr: (jvm_memory_bytes_used{job="node", area="heap"} + ignoring(area) jvm_memory_bytes_used{job="node", area="nonheap"}) > 800 MB
+#        for: 5m
+#        labels:
+#          severity: critical
+#        annotations:

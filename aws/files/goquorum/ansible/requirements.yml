@@ -1,0 +1,19 @@
+---
+roles:
+  - src: https://github.com/ConsenSys/ansible-role-goquorum
+    version: master
+    name: consensys.goquorum
+  - src: consensys.hyperledger_besu
+    version: 0.3.5
+  - src: undergreen.prometheus-node-exporter
+    version: v1.4.0
+  - src: undergreen.prometheus-exporters-common
+    version: v1.2.0
+  - name: cloudalchemy.node_exporter
+    version: 2.0.0
+
+collections:
+  - name: amazon.aws
+    version: 1.5.0
+  - name: community.aws
+    version: 1.5.0

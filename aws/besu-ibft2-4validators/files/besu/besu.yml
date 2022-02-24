@@ -1,0 +1,24 @@
+---
+- hosts: localhost
+  connection: local
+  force_handlers: True
+
+  roles:
+    - role: consensys.hyperledger_besu
+      vars:
+        besu_version: PARAM_BESU_VERSION
+        besu_network: custom
+        besu_data_dir: "/data"
+        besu_sync_mode: FULL
+        besu_genesis_path: /etc/besu/genesis.json
+        besu_node_private_key_file: "/etc/besu/nodekey"
+        besu_rpc_http_api: ["DEBUG","NET","WEB3","ETH","ADMIN","PERM","EEA","PRIV","TXPOOL","IBFT" ]
+        besu_bootnodes: ["enode://8207f62614e22ce4f8736a5741e525f9fd2d907dcd7012aa481d25d8141f919577184508912a6884fd1838e39a23e2b00117ada8167d2c3f2fa2635d1edbcba8@PARAM_BOOTNODE_IP:30303"]
+        besu_log4j_config_file: "/opt/log4j/besu-log-config.xml"
+        besu_host_ip: PARAM_BESU_HOST_IP
+        besu_xdns_enabled: "true"
+
+    - role: undergreen.prometheus-node-exporter
+      become: yes
+      vars:
+        ansible_python_interpreter: /usr/bin/python
