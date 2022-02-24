@@ -57,37 +57,11 @@ resource "aws_iam_instance_profile" "eth_nodes_profile" {
   role = aws_iam_role.eth_nodes_role.name
 }
 
-# ####################################################
-# Besu bootnode
-# ####################################################
-module "besu_bootnodes" {
-  source = "../modules/besu_node"
-  network_name = var.network_name
-  region_details = var.region_details
-  vpc_details = var.vpc_details
-  ingress_ips = {
-    discovery_cidrs = var.vpc_details["vpc_cidr"]
-    rpc_cidrs = var.vpc_details["vpc_cidr"]
-  }
-  node_details = {
-    node_type = "bootnode"
-    node_count = 1
-    provisioning_path = "../files/"
-    genesis_provisioning_path = "./files/besu/"
-    iam_profile = aws_iam_instance_profile.eth_nodes_profile.name
-    ami_id = var.amzn2_ami_id
-    instance_type = var.instance_type
-    volume_size = var.instance_volume_size
-    bootnode_ip = "self"
-  }
-  tags = var.tags
-}
-
 ####################################################
-# Besu validators
+# GoQuorum validators
 ####################################################
-module "besu_validators" {
-  source = "../modules/besu_node"
+module "goquorum_validators" {
+  source = "../modules/goquorum_node"
   network_name = var.network_name
   region_details = var.region_details
   vpc_details = var.vpc_details
@@ -99,21 +73,20 @@ module "besu_validators" {
     node_type = "validator"
     node_count = 4
     provisioning_path = "../files/"
-    genesis_provisioning_path = "./files/besu/"
+    genesis_provisioning_path = "./files/goquorum/"
     iam_profile = aws_iam_instance_profile.eth_nodes_profile.name
     ami_id = var.amzn2_ami_id
     instance_type = var.instance_type
     volume_size = var.instance_volume_size
-    bootnode_ip = "${module.besu_bootnodes.besu_nodes[0].private_ip}"
   }
   tags = var.tags
 }
 
 ####################################################
-# Besu rpcnodes
+# GoQuorum rpcnodes
 ####################################################
-module "besu_rpcnodes" {
-  source = "../modules/besu_node"
+module "goquorum_rpcnodes" {
+  source = "../modules/goquorum_node"
   network_name = var.network_name
   region_details = var.region_details
   vpc_details = var.vpc_details
@@ -125,12 +98,11 @@ module "besu_rpcnodes" {
     node_type = "rpcnode"
     node_count = 2
     provisioning_path = "../files/"
-    genesis_provisioning_path = "./files/besu/"
+    genesis_provisioning_path = "./files/goquorum/"
     iam_profile = aws_iam_instance_profile.eth_nodes_profile.name
     ami_id = var.amzn2_ami_id
     instance_type = var.instance_type
     volume_size = var.instance_volume_size
-    bootnode_ip = "${module.besu_bootnodes.besu_nodes[0].private_ip}"
   }
   tags = var.tags
 }

@@ -122,7 +122,7 @@ resource "aws_instance" "besu_nodes" {
 
   # base ansible config
   provisioner "file" {
-    source = "${var.node_details["provisioning_path"]}/ansible"
+    source = "${var.node_details["provisioning_path"]}/besu/ansible"
     destination = "/home/ec2-user/besu"
   }
 

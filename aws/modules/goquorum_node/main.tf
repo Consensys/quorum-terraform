@@ -83,7 +83,7 @@ resource "aws_instance" "goquorum_nodes" {
   associate_public_ip_address = true
   ebs_optimized = true
   root_block_device {
-    volume_size = 100
+    volume_size = 80
   }
   ebs_block_device {
     device_name = "/dev/sdf"
@@ -91,7 +91,7 @@ resource "aws_instance" "goquorum_nodes" {
     volume_type = "gp2"
     delete_on_termination = false
     tags = {
-      Name = "${local.resource_prefix}-${var.node_details["node_type"]}-${count.index}-data"
+      Name = "${local.resource_prefix}-${var.node_details["node_type"]}${count.index}-data"
       VPC = var.vpc_details["vpc_id"][0]
       ProjectName  = var.tags["project_name"]
       ProjectGroup = var.tags["project_group"]
@@ -102,7 +102,7 @@ resource "aws_instance" "goquorum_nodes" {
 
   count = var.node_details["node_count"]
   tags = {
-    Name = "${local.resource_prefix}-${var.node_details["node_type"]}-${count.index}"
+    Name = "${local.resource_prefix}-${var.node_details["node_type"]}${count.index}"
     VPC = var.vpc_details["vpc_id"][0]
     goquorumVersion  = var.goquorum_version
     Team         = var.tags["team"]
@@ -117,18 +117,24 @@ resource "aws_instance" "goquorum_nodes" {
 
   provisioner "file" {
     content = "${data.template_file.provision_data_volume.rendered}"
-    destination = "$HOME/provision_volume.sh"
+    destination = "/home/ec2-user/provision_volume.sh"
   }
 
   provisioner "file" {
-    source = "${var.node_details["provisioning_path"]}/ansible"
-    destination = "$HOME/goquorum"
+    source = "${var.node_details["provisioning_path"]}/goquorum/ansible"
+    destination = "/home/ec2-user/goquorum"
+  }
+
+  # custom ansible config ie genesis static nodes, etc
+  provisioner "file" {
+    source = "${var.node_details["genesis_provisioning_path"]}"
+    destination = "/home/ec2-user/goquorum"
   }
 
   # copy the keys
   provisioner "file" {
-    source = "${var.node_details["provisioning_path"]}/keys/${var.node_details["node_type"]}-${count.index}"
-    destination = "$HOME/goquorum/keys"
+    source = "${var.node_details["provisioning_path"]}/nodes/${var.node_details["node_type"]}${count.index}"
+    destination = "/home/ec2-user/goquorum/keys"
   }
 
   # when the provisioner fires up, wait for the instance to signal its finished booting, before attempting to install packages, apt is locked until then
@@ -138,7 +144,7 @@ resource "aws_instance" "goquorum_nodes" {
       "sudo yum install -y ${var.amzn2_base_packages}",
       "sudo sh $HOME/provision_volume.sh ",
       "sleep 120", # odd case of dns entries taking a while to create and when they take longer our ansible play fails - this halts the progression to allow the route53 entries to be created for the bootnodes
-      "sudo sh $HOME/goquorum/setup.sh '${var.goquorum_version}' '${var.node_details["node_type"]}'",
+      "sudo sh $HOME/goquorum/setup.sh '${var.goquorum_version}' '${var.node_details["node_type"]}' '${local.resource_prefix}' '${var.region_details["private_zone_name"]}' ",
       "sleep 30",
     ]
   }
@@ -150,7 +156,7 @@ resource "aws_instance" "goquorum_nodes" {
 resource "aws_route53_record" "goquorum_nodes_dns" {
   count   = var.node_details["node_count"]
   zone_id = var.region_details["private_zone_id"]
-  name    = "${local.resource_prefix}-${var.node_details["node_type"]}-${count.index}.${var.region_details["private_zone_name"]}"
+  name    = "${local.resource_prefix}-${var.node_details["node_type"]}${count.index}.${var.region_details["private_zone_name"]}"
   type    = "A"
   ttl     = "300"
   records = [ aws_instance.goquorum_nodes[count.index].private_ip ]

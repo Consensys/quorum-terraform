@@ -57,7 +57,7 @@ variable "tags" {
 # make sure the goquorum_version and download_url match in the number
 # eg: 1.3.8 for version is used for anything that contains 1.3.8-rc.. or 1.3.8-snapshot.. etc
 variable "goquorum_version" {
-  default = "v21.7.1"
+  default = "v22.1.0"
 }
 
 variable "amzn2_base_packages" {
