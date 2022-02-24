@@ -1,27 +1,27 @@
 variable "network_name" {
-  default = "josh"
+  default = "quorum"
 }
 
 variable "region_details" {
   type = map(string)
   default = { 
     region = "ap-southeast-2"
-    ssh_key = "pegasys-sydney"
-    ssh_key_path = "~/.ssh/consensys/pegasys-sydney.pem"
-    private_zone_id = "Z0786174HW19QSTZ4KXW"
-    private_zone_name = "sydney.pegasys.tech"
+    ssh_key = "my-ssh-key"
+    ssh_key_path = "~/.ssh/my-ssh-key.pem"
+    private_zone_id = "Z..."
+    private_zone_name = "my.private-dns.zone"
   }
 }
 
 variable "vpc_details" {
   type = map(any)
   default = {
-    vpc_id = ["vpc-00a3a16d98f58571d"]
-    vpc_cidr = ["10.2.0.0/16"]
-    default_sg = ["sg-0f63a55b2bc43cce9"]
+    vpc_id = ["vpc-0..."]
+    vpc_cidr = ["10.0.0.0/16"]
+    default_sg = ["sg-0..."]
     azs = ["ap-southeast-2a", "ap-southeast-2b", "ap-southeast-2c"]
-    public_subnets = [ "subnet-0dd691562251c046d", "subnet-0b8f5d54f436835a2", "subnet-05c5829d52b97ded4" ]
-    private_subnets = [ "subnet-0bf98f1c462a94d23", "subnet-0e7cd49e8782e9731", "subnet-077285a209dca7f74" ]
+    public_subnets = [ "subnet-0...", "subnet-0...", "subnet-0..." ]
+    private_subnets = [ "subnet-0...", "subnet-0...", "subnet-0..." ]
   }
 }
 
@@ -55,7 +55,7 @@ variable "instance_volume_size" {
 variable "tags" {
   type = map(string)
   default = {
-    project_name = "ibft2"
+    project_name = "quorum"
     project_group = "blockchain"
     team = "ops"
   }
