@@ -40,7 +40,7 @@ variable "node_details" {
     provisioning_path = "files/besu"
     genesis_provisioning_path = "files/besu" 
     iam_profile = ""
-    ami_id = ""
+    ami_id = "ami-"
     instance_type = "t5.large"
     volume_size = "500"
     bootnode_ip = "self"

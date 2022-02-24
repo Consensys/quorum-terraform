@@ -28,15 +28,16 @@ variable "vpc_details" {
 variable "node_details" {
   type = map(string)
   default = {
-    node_type = "rpcnode"     # bootnode, validator, rpcnode
+    node_type = "rpcnode"     # validator, rpcnode
     node_count = 1
     provisioning_path = "../files/"
-    genesis_provisioning_path = "./files/besu/"
+    genesis_provisioning_path = "./files/goquorum/"
     iam_profile = ""
   }
 }
 
-variable "besu_version" {
+
+variable "goquorum_version" {
   default = "22.1.0"
 }
 
@@ -55,7 +56,7 @@ variable "instance_volume_size" {
 variable "tags" {
   type = map(string)
   default = {
-    project_name = "ibft2"
+    project_name = "josh"
     project_group = "blockchain"
     team = "ops"
   }

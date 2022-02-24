@@ -2,11 +2,13 @@
 roles:
   - src: consensys.hyperledger_besu
     version: 0.3.5
+  - name: consensys.goquorum
+    src: https://github.com/ConsenSys/ansible-role-goquorum
+    version: master
   - src: undergreen.prometheus-node-exporter
     version: v1.4.0
   - src: undergreen.prometheus-exporters-common
     version: v1.2.0
-  - src: consensys.teku
   - name: cloudalchemy.node_exporter
     version: 2.0.0
   - name: consensys.web3signer

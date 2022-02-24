@@ -72,7 +72,7 @@ module "besu_bootnodes" {
   node_details = {
     node_type = "bootnode"
     node_count = 1
-    provisioning_path = "../files/besu/"
+    provisioning_path = "../files/"
     genesis_provisioning_path = "./files/besu/"
     iam_profile = aws_iam_instance_profile.eth_nodes_profile.name
     ami_id = var.amzn2_ami_id
@@ -98,7 +98,7 @@ module "besu_validators" {
   node_details = {
     node_type = "validator"
     node_count = 4
-    provisioning_path = "../files/besu/"
+    provisioning_path = "../files/"
     genesis_provisioning_path = "./files/besu/"
     iam_profile = aws_iam_instance_profile.eth_nodes_profile.name
     ami_id = var.amzn2_ami_id
@@ -124,7 +124,7 @@ module "besu_rpcnodes" {
   node_details = {
     node_type = "rpcnode"
     node_count = 2
-    provisioning_path = "../files/besu/"
+    provisioning_path = "../files/"
     genesis_provisioning_path = "./files/besu/"
     iam_profile = aws_iam_instance_profile.eth_nodes_profile.name
     ami_id = var.amzn2_ami_id
