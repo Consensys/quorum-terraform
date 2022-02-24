@@ -37,15 +37,16 @@ variable "region_details" {
 }
 
 # map of node details
-variable "node_settings" {
+variable "node_details" {
   type = map(string)
   default = {
     node_type         = "rpcnode" # bootnode, validator, rpcnode
     node_count        = 1
-    provisioning_path = "files/besu"
+    provisioning_path = "./files/besu"
+    iam_profile       = ""
     ami_id            = "ami-0b7dcd6e6fd797935"
+    volume_size       = 500
     instance_type     = "t3.xlarge"
-    volume_size       = 500 # in GB
   }
 }
 
@@ -65,9 +66,14 @@ variable "user_ssh_public_keys" {
 }
 
 variable "besu_version" {
-  default = "21.10.5"
+  default = "21.10.9"
 }
 
-variable "besu_download_url" {
-  default = "https://bintray.com/hyperledger-org/besu-repo/download_file?file_path=besu-{{besu_version}}.tar.gz"
+# variable "besu_download_url" {
+#   default = "https://bintray.com/hyperledger-org/besu-repo/download_file?file_path=besu-{{besu_version}}.tar.gz"
+# }
+
+variable "delete_volumes_on_termination" {
+  type    = bool
+  default = false
 }

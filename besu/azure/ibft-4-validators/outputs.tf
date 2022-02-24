@@ -15,6 +15,6 @@ output "subnets" {
 }
 
 output "monitoring_vm_fqdn" {
-  value = "${azurerm_public_ip.monitoring_public_ip.fqdn}"
+  value = azurerm_public_ip.monitoring_public_ip.fqdn
 }
 

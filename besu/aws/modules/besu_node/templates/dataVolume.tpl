@@ -27,4 +27,3 @@ ebs_device_id=$(lsblk | grep ${besu_data_volume_size/1000}T | grep -o "^\w*\b")
 ebs_device=/dev/$ebs_device_id
 _create_xfs_filesystem "$ebs_device"
 _mount_filesystem_at "$ebs_device" /data
-

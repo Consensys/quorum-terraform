@@ -30,7 +30,7 @@ resource "aws_instance" "nodes" {
   instance_type               = var.node_details["instance_type"]
   key_name                    = var.region_details["ssh_key"]
   subnet_id                   = element(var.public_subnets, count.index % length(var.public_subnets))
-  vpc_security_group_ids      = [module.ssh_security_group.security_group_id, aws_security_group.eth_sg.id]
+  vpc_security_group_ids      = [module.ssh_security_group.security_group_id, var.sg_attach]
   iam_instance_profile        = var.node_details["iam_profile"]
   associate_public_ip_address = true
   ebs_optimized               = true
@@ -43,7 +43,7 @@ resource "aws_instance" "nodes" {
     device_name           = "/dev/sdf"
     volume_size           = var.node_details["volume_size"]
     volume_type           = "gp3"
-    delete_on_termination = false
+    delete_on_termination = var.delete_volumes_on_termination
     tags = {
       Name   = "${var.node_details["node_type"]}-${count.index}-data"
       VPC_id = var.vpc_id
@@ -63,43 +63,43 @@ resource "aws_instance" "nodes" {
   }
 
   provisioner "file" {
-    source      = "./files/append_auth_keys.sh"
-    destination = "$HOME/append_auth_keys.sh"
+    source      = "${path.module}/files/append_auth_keys.sh"
+    destination = "/home/${var.login_user}/append_auth_keys.sh"
   }
 
   provisioner "file" {
-    source      = "./files/besu"
-    destination = "$HOME"
+    source      = "${path.module}/files/besu"
+    destination = "/home/${var.login_user}"
   }
 
   provisioner "file" {
-    source      = "./files/besu_ibft/besu.yml"
-    destination = "$HOME/besu/besu.yml"
+    source      = "${path.module}/files/besu_ibft/besu.yml"
+    destination = "/home/${var.login_user}/besu/besu.yml"
   }
 
   provisioner "file" {
-    source      = "./files/besu_ibft/ibft.json"
-    destination = "$HOME/besu/ibft.json"
+    source      = "${path.module}/files/besu_ibft/ibft.json"
+    destination = "/home/${var.login_user}/besu/ibft.json"
   }
 
   provisioner "file" {
-    source      = "${var.node_details["provisioning_path"]}/${var.node_details["node_type"]}-${count.index}"
-    destination = "$HOME/besu/node_db/"
+    source      = "${path.module}/files/besu_ibft/${var.node_details["node_type"]}-${count.index}/"
+    destination = "/home/${var.login_user}/besu/key"
   }
 
   provisioner "file" {
     content     = data.template_file.provision_data_volume.rendered
-    destination = "$HOME/provision_volume.sh"
+    destination = "/home/${var.login_user}/provision_volume.sh"
   }
 
   # when the provisioner fires up, wait for the instance to signal its finished booting, before attempting to install packages, apt is locked until then
   provisioner "remote-exec" {
     inline = [
       "timeout 120 /bin/bash -c 'until stat /var/lib/cloud/instance/boot-finished 2>/dev/null; do echo waiting ...; sleep 5; done'",
-      "sh $HOME/append_auth_keys.sh ${join(" ", formatlist("'%s'", var.user_ssh_public_keys))}",
-      "sudo apt-get update && sudo apt-get install -y apparmor apt-transport-https ca-certificates curl build-essential openjdk-11-jdk python3 python3-setuptools python3-pip python3-dev python3-virtualenv python3-venv virtualenv",
-      "sudo sh $HOME/provision_volume.sh",
-      "sudo sh $HOME/besu/setup.sh '${var.besu_version}' '${var.besu_download_url}' '${var.region_details["node_type"] == "bootnode" ? self.public_ip : var.bootnode_ip}'",
+      "sh /home/${var.login_user}/append_auth_keys.sh ${join(" ", formatlist("'%s'", var.user_ssh_public_keys))}",
+      "sudo apt update && sudo apt install -y apparmor apt-transport-https ca-certificates curl build-essential openjdk-11-jdk python3 python3-setuptools python3-pip python3-dev python3-virtualenv python3-venv virtualenv",
+      "sudo /bin/bash /home/${var.login_user}/provision_volume.sh",
+      "sudo /bin/bash /home/${var.login_user}/besu/setup.sh '${var.besu_version}' '${var.node_details["node_type"] == "bootnode" ? self.private_ip : var.bootnode_ip}' '${var.login_user}'",
       "sleep 15",
     ]
   }

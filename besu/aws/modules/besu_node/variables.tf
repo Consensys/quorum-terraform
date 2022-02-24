@@ -27,6 +27,10 @@ variable "node_details" {
   }
 }
 
+variable "sg_attach" {
+  default = ""
+}
+
 variable "user_ssh_public_keys" {
   type    = list(any)
   default = []
@@ -59,9 +63,14 @@ variable "vpc_id" {
 }
 
 variable "besu_version" {
-  default = "21.10.5"
+  default = "21.10.9"
 }
 
-variable "besu_download_url" {
-  default = "https://bintray.com/hyperledger-org/besu-repo/download_file?file_path=besu-{{besu_version}}.tar.gz"
+# variable "besu_download_url" {
+#   default = "https://bintray.com/hyperledger-org/besu-repo/download_file?file_path=besu-{{besu_version}}.tar.gz"
+# }
+
+variable "delete_volumes_on_termination" {
+  type    = bool
+  default = false
 }

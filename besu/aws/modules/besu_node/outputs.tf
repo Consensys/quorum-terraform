@@ -1,3 +1,3 @@
 output "bootnode_ip" {
-  value = var.bootnode_ip == "" ? aws_instance.nodes[0].public_ip : null
+  value = var.node_details["node_type"] == "bootnode" ? aws_instance.nodes[0].public_ip : null
 }
