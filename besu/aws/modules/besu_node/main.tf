@@ -83,7 +83,7 @@ resource "aws_instance" "nodes" {
   }
 
   provisioner "file" {
-    source      = "${path.module}/files/besu_ibft/${var.node_details["node_type"]}-${count.index}/"
+    source      = "${path.module}/files/besu_ibft/${var.node_details["node_type"]}-${count.index}/key"
     destination = "/home/${var.login_user}/besu/key"
   }
 

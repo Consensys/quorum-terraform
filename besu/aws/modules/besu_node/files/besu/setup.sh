@@ -19,8 +19,6 @@ source env/bin/activate
 pip3 install wheel
 pip3 install -r requirements.txt
 
-# 2x becuase of some random git timeouts
-ansible-galaxy install -r requirements.yml --force --ignore-errors
 ansible-galaxy install -r requirements.yml --force --ignore-errors
 
 # start in stopped state so paths and config are created

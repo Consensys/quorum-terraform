@@ -1,4 +1,5 @@
 ---
-- src: pegasyseng.hyperledger_besu
+- src: consensys.hyperledger_besu
+  version: 0.3.5
 - src: undergreen.prometheus-node-exporter
 - src: undergreen.prometheus-exporters-common

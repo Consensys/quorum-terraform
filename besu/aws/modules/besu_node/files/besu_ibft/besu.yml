@@ -8,6 +8,9 @@
       vars:
         besu_version: PARAM_BESU_VERSION
         besu_network: ibft
+        besu_data_dir: "/opt/besu/data"
+        besu_node_private_key_file: "/opt/besu/data/key"
+        besu_rpc_http_enabled: true
         besu_rpc_http_api: ["DEBUG","NET","WEB3","ETH","ADMIN","IBFT"]
         besu_genesis_path: /etc/besu/genesis.json
         besu_bootnodes: ["enode://05e2aab6df08db103fd75c4fb2b8582fe43eebce6a0f077b590a5e7f44ed081e498fa2c57788372d7bc0c41a34394f34c5c11332f4473a1bdf83589316edc2c4@PARAM_BESU_BOOTNODE_IP:30303"]
