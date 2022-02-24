@@ -1,7 +1,14 @@
 */.terraform/*
 .terraform/*
 terraform.tfstate.backup
+terraform.tfstate
 .idea/*
 **/.terraform
 **/.DS_Store
 aws/terraform.tfstate
+.DS_STORE
+.envrc
+.lh
+*.tfvars
+.pre-commit-config.yaml
+*.out
