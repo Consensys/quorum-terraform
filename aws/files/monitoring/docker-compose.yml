@@ -1,0 +1,92 @@
+---
+version: '3'
+
+services:
+
+  prometheus:
+    container_name: prometheus
+    labels:
+      service_name: prometheus
+    image: "registry.hub.docker.com/prom/prometheus:v2.32.1"
+    restart: always
+    network_mode: "host"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/log/prometheus/:/var/log/prometheus/
+      - /data/prometheus/config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - /data/prometheus/config/alert_rules.yml:/etc/prometheus/alert_rules.yml
+      - /data/prometheus/data/:/prometheus
+    command:
+      - '--log.format=json'
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "200k"
+        max-file: "10"
+    environment:
+      AWS_REGION: "PARAM_AWS_REGION"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 1024M
+        reservations:
+          cpus: '0.25'
+          memory: 512M
+    cap_add:
+      - NET_ADMIN
+
+  grafana:
+    container_name: grafana
+    labels:
+      service_name: grafana
+    image: "registry.hub.docker.com/grafana/grafana:8.2.2"
+    restart: always
+    network_mode: "host"
+    volumes:
+      - /data/grafana/config/provisioning/:/etc/grafana/provisioning/
+      - /data/grafana/data/:/var/lib/grafana/
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /var/log/grafana/:/var/log/grafana/
+    environment:
+      AWS_REGION: "ap-southeast-2"
+      GF_SECURITY_ADMIN_PASSWORD: "Passwordz!@#4"
+      GF_LOG_MODE: "file"
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 1024M
+        reservations:
+          cpus: '0.25'
+          memory: 512M
+    cap_add:
+      - NET_ADMIN
+
+  # alertmanager:
+  #   container_name: alertmanager
+  #   labels:
+  #     service_name: alertmanager
+  #   image: "registry.hub.docker.com/prom/alertmanager:v0.23.0"
+  #   restart: always
+  #   network_mode: "host"
+  #   volumes:
+  #     - "./alertmanager/config:/config"
+  #     - "./alertmanager/data:/data"
+  #     - /var/run/docker.sock:/var/run/docker.sock:ro
+  #   command:
+  #     - "--config.file=/config/alertmanager.yml"
+  #     - "--log.level=debug"
+  #   environment:
+  #     AWS_REGION: "PARAM_AWS_REGION"
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: '0.50'
+  #         memory: 1024M
+  #       reservations:
+  #         cpus: '0.25'
+  #         memory: 512M
+  #   cap_add:
+  #     - NET_ADMIN

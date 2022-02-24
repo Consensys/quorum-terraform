@@ -1,0 +1,89 @@
+{
+  "nonce": "0x0",
+  "timestamp": "0x58ee40ba",
+  "extraData": "0xf87ea00000000000000000000000000000000000000000000000000000000000000000f854946abab435cf2e1b72913167872ed792e20224b132949de552a396603033b2e330de2e3befd43d6dbeaa9452eb0511999bbccb50beb6fb4b2f15712625434894f59d4048eee36c18ebaae74a0501f23c27859c9a808400000000c0",
+  "gasLimit": "0xFFFFFF",
+  "gasUsed": "0x0",
+  "number": "0x0",
+  "difficulty": "0x1",
+  "coinbase": "0x0000000000000000000000000000000000000000",
+  "mixHash": "0x63746963616c2062797a616e74696e65206661756c7420746f6c6572616e6365",
+  "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+  "config": {
+    "chainId": 1337,
+    "homesteadBlock": 0,
+    "eip150Block": 0,
+    "eip150Hash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "eip155Block": 0,
+    "eip158Block": 0,
+    "byzantiumBlock": 0,
+    "constantinopleBlock": 0,
+    "ibft2": {
+      "blockperiodseconds": 5,
+      "epochlength": 30000,
+      "requesttimeoutseconds": 10
+    }
+  },
+  "alloc": {
+    "fe3b557e8fb62b89f4916b721be55ceb828dbd73": {
+      "balance": "90000000000000000000000",
+      "comment": "test account from quorum-dev-quickstart -- please remove me before entering production"
+    },
+    "f17f52151EbEF6C7334FAD080c5704D77216b732": {
+      "balance": "90000000000000000000000",
+      "comment": "test account from quorum-dev-quickstart -- please remove me before entering production"
+    },
+    "627306090abaB3A6e1400e9345bC60c78a8BEf57": {
+      "balance": "90000000000000000000000",
+      "comment": "test account from quorum-dev-quickstart -- please remove me before entering production"
+    },
+    "0x623fec16adc729c425f1397e8511c3a2cbbc1886": {
+      "balance": "1000000000000000000000000000"
+    },
+    "0xaa557a5ea041ec5c4164c7b4e9b2405d0f70568e": {
+      "balance": "1000000000000000000000000000"
+    },
+    "0xc6a877e69e26c66dfce224773888b09674a950f0": {
+      "balance": "1000000000000000000000000000"
+    },
+    "0x0a1ceaa5c267e5e2aefc7af3de5c2b6ba0f53473": {
+      "balance": "1000000000000000000000000000"
+    },
+    "0x26697f69317f4c25fc1d04c8b4566cee6a47a945": {
+      "balance": "1000000000000000000000000000"
+    },
+    "0x9da66877c174412c263ec2e3754633883ae2d4cb": {
+      "balance": "1000000000000000000000000000"
+    },
+    "0x0e0c9b47784cbf1e2630593cc17ead0ae46f024d": {
+      "balance": "1000000000000000000000000000"
+    },
+    "0x1c7ffaacc32ec9712f28f32618def621aedb9ab4": {
+      "balance": "1000000000000000000000000000"
+    },
+    "0xb9b5a22757c9df6a359c22cd66fae68ecff28be4": {
+      "balance": "1000000000000000000000000000"
+    },
+    "0xea03d19a839a8e5629c4ad87ce8bc3dd4c281d85": {
+      "balance": "1000000000000000000000000000"
+    },
+    "0x2c6ab90440cc6f4d1d3f790c681beff5be6f30fe": {
+      "balance": "1000000000000000000000000000"
+    },
+    "0xba520f93ffbeea0c5f7681a03084c022cf409747": {
+      "balance": "1000000000000000000000000000"
+    },
+    "0xee338ed05ba4ccd6257eb6d6832935cb1caa86b7": {
+      "balance": "1000000000000000000000000000"
+    },
+    "0xccd6872568009c5669fc699098a4373171c905b6": {
+      "balance": "1000000000000000000000000000"
+    },
+    "0x06fb74449ff6889ee6c969b0faf5a07efae9210c": {
+      "balance": "1000000000000000000000000000"
+    },
+    "0x6e81dc95d6444a298f7de9276465672e1db95077": {
+      "balance": "1000000000000000000000000000"
+    }
+  }
+}
