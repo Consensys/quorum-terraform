@@ -7,6 +7,7 @@ variable "region_details" {
   default = { 
     region = "ap-southeast-2"
     ssh_key = "my-ssh-key"
+    ssh_user = "ec2-user"
     ssh_key_path = "~/.ssh/my-ssh-key.pem"
     private_zone_id = "Z..."
     private_zone_name = "my.private-dns.zone"
@@ -36,7 +37,6 @@ variable "node_details" {
   }
 }
 
-
 variable "goquorum_version" {
   default = "22.1.0"
 }
@@ -51,6 +51,14 @@ variable "instance_type" {
 
 variable "instance_volume_size" {
   default = "100"
+}
+
+variable "validator_node_count" {
+  default = 4
+}
+
+variable "rpc_node_count" {
+  default = 2
 }
 
 variable "tags" {

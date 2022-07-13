@@ -133,14 +133,14 @@ resource "aws_instance" "monitoring" {
 
   connection {
     type = "ssh"
-    user = "ec2-user"
+    user = ${var.ec2_user}
     host = "${self.public_ip}"
     private_key = "${file(pathexpand(var.region_details.ssh_key_path))}"
   }
 
   provisioner "file" {
     source = "${var.node_details["provisioning_path"]}"
-    destination = "/home/ec2-user/monitoring"
+    destination = "/home/${var.ec2_user}/monitoring"
   }
 
 
@@ -149,7 +149,7 @@ resource "aws_instance" "monitoring" {
     inline = [
       "timeout 120 /bin/bash -c 'until stat /var/lib/cloud/instance/boot-finished 2>/dev/null; do echo waiting ...; sleep 5; done'",
       "sudo yum install -y ${var.amzn2_base_packages}",
-      "sudo amazon-linux-extras install -y docker && sudo usermod -a -G docker ec2-user",
+      "sudo amazon-linux-extras install -y docker && sudo usermod -a -G docker ${var.ec2_user}",
       "sudo systemctl enable --now docker && sudo systemctl restart docker",
       "sudo curl -L https://github.com/docker/compose/releases/download/1.29.1/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose",
       "sudo chmod +x /usr/local/bin/docker-compose",

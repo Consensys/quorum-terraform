@@ -1,15 +1,7 @@
-
-
 locals {
   resource_prefix = "${var.network_name}-goquorum"
 }
 
-data "template_file" "provision_data_volume" {
-  template = "${file("${path.module}/templates/dataVolume.tpl")}"
-  vars = {
-    goquorum_data_volume_size = "${var.node_details["volume_size"]}"
-  }
-}
 
 resource "aws_security_group" "goquorum_discovery_sg" {
   name        = "${local.resource_prefix}-${var.node_details["node_type"]}-discovery-sg"
@@ -108,33 +100,43 @@ resource "aws_instance" "goquorum_nodes" {
     Team         = var.tags["team"]
   }
 
+  lifecycle {
+    ignore_changes = all
+  }
+}
+
+resource "null_resource" "goquorum_nodes" {
+  count = var.node_details["node_count"]
+
   connection {
-    type = "ssh"
-    user = "ec2-user"
-    host = "${self.public_ip}"
+    type        = "ssh"
+    user        = "${var.ec2_user}"
+    host        = "${aws_instance.goquorum_nodes[count.index].public_ip}"
+    agent       = false
     private_key = "${file(pathexpand(var.region_details.ssh_key_path))}"
+    timeout     = "20s"
   }
 
   provisioner "file" {
-    content = "${data.template_file.provision_data_volume.rendered}"
-    destination = "/home/ec2-user/provision_volume.sh"
+    content = templatefile("${path.module}/templates/dataVolume.tpl", {goquorum_data_volume_size = "${var.node_details["volume_size"]}"})
+    destination = "/home/${var.ec2_user}/provision_volume.sh"
   }
 
   provisioner "file" {
     source = "${var.node_details["provisioning_path"]}/goquorum/ansible"
-    destination = "/home/ec2-user/goquorum"
+    destination = "/home/${var.ec2_user}/goquorum"
   }
 
   # custom ansible config ie genesis static nodes, etc
   provisioner "file" {
     source = "${var.node_details["genesis_provisioning_path"]}"
-    destination = "/home/ec2-user/goquorum"
+    destination = "/home/${var.ec2_user}/goquorum"
   }
 
   # copy the keys
   provisioner "file" {
     source = "${var.node_details["provisioning_path"]}/nodes/${var.node_details["node_type"]}${count.index}"
-    destination = "/home/ec2-user/goquorum/keys"
+    destination = "/home/${var.ec2_user}/goquorum/keys"
   }
 
   # when the provisioner fires up, wait for the instance to signal its finished booting, before attempting to install packages, apt is locked until then
@@ -147,9 +149,6 @@ resource "aws_instance" "goquorum_nodes" {
       "sudo sh $HOME/goquorum/setup.sh '${var.goquorum_version}' '${var.node_details["node_type"]}' '${local.resource_prefix}' '${var.region_details["private_zone_name"]}' ",
       "sleep 30",
     ]
-  }
-  lifecycle {
-    ignore_changes = all
   }
 }
 
