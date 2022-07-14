@@ -3,19 +3,19 @@
 ####################################################
 # monitoring 
 ####################################################
-# module "monitoring" {
-#   source = "../modules/monitoring"
-#   network_name = var.network_name
-#   region_details = var.region_details
-#   vpc_details = var.vpc_details
-#   node_details = {
-#     provisioning_path = "../files/monitoring"
-#     ami_id = var.amzn2_ami_id
-#     instance_type = "t3.micro"
-#   }
-#   ec2_user = var.region_details["ssh_user"]
-#   tags = var.tags
-# }
+module "monitoring" {
+  source = "../modules/monitoring"
+  network_name = var.network_name
+  region_details = var.region_details
+  vpc_details = var.vpc_details
+  node_details = {
+    provisioning_path = "../files/monitoring"
+    ami_id = var.amzn2_ami_id
+    instance_type = "t3.micro"
+  }
+  ec2_user = var.region_details["ssh_user"]
+  tags = var.tags
+}
 
 # common role for the eth nodes to use
 resource "aws_iam_role" "eth_nodes_role" {
