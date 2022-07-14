@@ -133,7 +133,7 @@ resource "aws_instance" "monitoring" {
 
   connection {
     type = "ssh"
-    user = ${var.ec2_user}
+    user = "${var.ec2_user}"
     host = "${self.public_ip}"
     private_key = "${file(pathexpand(var.region_details.ssh_key_path))}"
   }

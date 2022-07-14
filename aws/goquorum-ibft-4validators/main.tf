@@ -1,4 +1,11 @@
-
+# UNCOMMENT IF YOU WANT REMOTE STATE
+# terraform {
+#   backend "s3" {
+#     bucket = "mybucket"
+#     key    = "state"
+#     region = "us-east-1"
+#   }
+# }
 
 ####################################################
 # monitoring 
