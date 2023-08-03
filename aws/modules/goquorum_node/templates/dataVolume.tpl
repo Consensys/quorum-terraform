@@ -15,11 +15,11 @@ function _create_xfs_filesystem (){
 # $1 = /dev/nvme1n1 (device)
 # $2 = /data (path)
 function _mount_filesystem_at (){
-  mkdir $2 && chown -R ec2-user:ec2-user $2
+  mkdir $2 && chown -R $USER:$USER $2
   UUID=$(blkid $1 | grep -oP '(UUID=).*(?=TYPE)' | sed -e 's/"//g')
   echo "$UUID      $2   xfs    defaults,nofail  0  2" >> /etc/fstab
   mount -a
-  chown -R ec2-user:ec2-user $2 && chmod -R 777 $2
+  chown -R $USER:$USER $2 && chmod -R 777 $2
 }
 
 # For the general case t3 (etc) box, this is used as the data directory and we mount to /data

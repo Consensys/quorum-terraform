@@ -1,4 +1,11 @@
-
+# UNCOMMENT IF YOU WANT REMOTE STATE
+# terraform {
+#   backend "s3" {
+#     bucket = "mybucket"
+#     key    = "state"
+#     region = "us-east-1"
+#   }
+# }
 
 ####################################################
 # monitoring 
@@ -13,6 +20,7 @@ module "monitoring" {
     ami_id = var.amzn2_ami_id
     instance_type = "t3.micro"
   }
+  ec2_user = var.region_details["ssh_user"]
   tags = var.tags
 }
 
@@ -71,7 +79,7 @@ module "goquorum_validators" {
   }
   node_details = {
     node_type = "validator"
-    node_count = 4
+    node_count = var.validator_node_count
     provisioning_path = "../files/"
     genesis_provisioning_path = "./files/goquorum/"
     iam_profile = aws_iam_instance_profile.eth_nodes_profile.name
@@ -79,6 +87,7 @@ module "goquorum_validators" {
     instance_type = var.instance_type
     volume_size = var.instance_volume_size
   }
+  ec2_user = var.region_details["ssh_user"]
   tags = var.tags
 }
 
@@ -96,7 +105,7 @@ module "goquorum_rpcnodes" {
   }
   node_details = {
     node_type = "rpcnode"
-    node_count = 2
+    node_count = var.rpc_node_count
     provisioning_path = "../files/"
     genesis_provisioning_path = "./files/goquorum/"
     iam_profile = aws_iam_instance_profile.eth_nodes_profile.name
@@ -104,6 +113,7 @@ module "goquorum_rpcnodes" {
     instance_type = var.instance_type
     volume_size = var.instance_volume_size
   }
+  ec2_user = var.region_details["ssh_user"]
   tags = var.tags
 }
 

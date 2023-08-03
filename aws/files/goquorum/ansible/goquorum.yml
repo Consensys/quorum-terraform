@@ -19,7 +19,7 @@
         goquorum_node_private_key_file: "/etc/goquorum/nodekey"
         goquorum_rpc_http_api: ["DEBUG","DB","TXPOOL","PERSONAL","NET","WEB3","ETH","ADMIN","TRACE","MINER","PLUGINS","TXPOOL","QUORUM","ISTANBUL","QBFT" ]
         goquorum_host_ip: PARAM_GOQUORUM_HOST_IP
-        goquorum_consensus_algorithm: "qbft"
+        goquorum_consensus_algorithm: "istanbul"
         goquorum_miner_enabled: True
 
     - role: cloudalchemy.node_exporter

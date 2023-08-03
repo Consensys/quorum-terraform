@@ -45,3 +45,7 @@ variable "tags" {
 variable "amzn2_base_packages" {
   default = "wget curl ntp bind-utils iproute vim-enhanced git libselinux-python python python-pip python-setuptools python-virtualenv python3-pip python3 python3-setuptools jq sysstat awslogs make automake gcc gcc-c++ kernel-devel java-11-amazon-corretto.x86_64"
 }
+
+variable "ec2_user" {
+  default = "ec2-user"
+}
