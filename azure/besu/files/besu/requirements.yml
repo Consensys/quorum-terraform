@@ -1,4 +1,11 @@
 ---
-- src: pegasyseng.hyperledger_besu
-- src: undergreen.prometheus-node-exporter
-- src: undergreen.prometheus-exporters-common
+  - src: consensys.hyperledger_besu
+    version: 0.3.17
+  - name: consensys.goquorum
+    src: https://github.com/ConsenSys/ansible-role-goquorum
+    version: master
+  - name: cloudalchemy.node_exporter
+    version: 2.0.0
+  - name: consensys.web3signer
+    version: v1.0.4
+

@@ -22,7 +22,5 @@
         goquorum_consensus_algorithm: "qbft"
         goquorum_miner_enabled: True
 
-    - role: undergreen.prometheus-node-exporter
+    - role: cloudalchemy.node_exporter
       become: yes
-      vars:
-        ansible_python_interpreter: /usr/bin/python

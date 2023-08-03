@@ -18,7 +18,5 @@
         besu_host_ip: PARAM_BESU_HOST_IP
         besu_xdns_enabled: "true"
 
-    - role: undergreen.prometheus-node-exporter
+    - role: cloudalchemy.node_exporter
       become: yes
-      vars:
-        ansible_python_interpreter: /usr/bin/python

@@ -4,7 +4,7 @@
   force_handlers: True
 
   roles:
-    - role: pegasyseng.hyperledger_besu
+    - role: consensys.hyperledger_besu
       vars:
         besu_version: PARAM_BESU_VERSION
         besu_network: ibft
@@ -14,4 +14,5 @@
         besu_host_ip: PARAM_BESU_HOST_IP
         # besu_download_url: "PARAM_BESU_DOWNLOAD_URL"
 
-    - { role: undergreen.prometheus-node-exporter, become: yes }
+    - role: cloudalchemy.node_exporter
+      become: yes
