@@ -6,7 +6,7 @@ Provisiong Besu on all nodes in these examples uses our [Ansible Galaxy role](ht
 
 ### Production Network Guidelines:
 
-| ⚠️ **Note**: After you have familiarised yourself with the examples in this repo, it is recommended that you design your network based on your needs and take our [recommendations](https://besu.hyperledger.org/en/stable/HowTo/Deploy/Cloud/) into account. It is also recommended to set up a Terraform Backend for a production deployment (e.g. using a S3 Bucket for saving tfstate and a DynamoDB table for state-locking and consistency checking). |
+| ⚠️ **Note**: After you have familiarised yourself with the examples in this repo, it is recommended that you design your network based on your needs and take our [recommendations](https://besu.hyperledger.org/development/private-networks/how-to/deploy/cloud) into account. It is also recommended to set up a Terraform Backend for a production deployment (e.g. using a S3 Bucket for saving tfstate and a DynamoDB table for state-locking and consistency checking). |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 #### IBFT2 with 4 validators and n nodes, with monitoring via prometheus and grafana
